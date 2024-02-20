@@ -17,6 +17,7 @@ All applications were fetched successfully. The response body contains an array 
 [
   {
     "personal_info": {
+      "person_id": 1,
       "name": "user1",
       "surname": "tester",
       "pnr": "123123123",
@@ -60,6 +61,7 @@ applications and an array of errors.
   "applications": [
     {
       "personal_info": {
+        "person_id": 1,
         "name": "user2",
         "surname": "tester",
         "pnr": "1231231232",
