@@ -5,14 +5,19 @@ class ApplicationStatus(database.Model):  # type: ignore
     """
     Represents the status of an application in the database.
 
+    :ivar application_status_id: The unique ID of the application status.
     :ivar person_id: The unique ID of the person associated with this
-    application status.
+          application status.
     :ivar status: The current status of the application.
     """
 
     __tablename__ = 'application_status'
 
-    person_id = database.Column(database.Integer, primary_key=True)
+    application_status_id = database.Column(
+            database.BigInteger, primary_key=True, autoincrement=True)
+    person_id = database.Column(
+            database.BigInteger, database.ForeignKey('person.person_id'),
+            nullable=False)
     status = database.Column(database.String)
 
     def __init__(self, person_id: int) -> None:
@@ -33,5 +38,6 @@ class ApplicationStatus(database.Model):  # type: ignore
         :returns: A dictionary representation of the application status.
         """
         return {
+            'application_status_id': self.application_status_id,
             'status': self.status
         }
