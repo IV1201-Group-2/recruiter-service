@@ -33,6 +33,7 @@ class Person(database.Model):  # type: ignore
         :returns: A dictionary representation of the person.
         """
         return {
+            'person_id': self.person_id,
             'name': self.name,
             'surname': self.surname,
             'pnr': self.pnr,
