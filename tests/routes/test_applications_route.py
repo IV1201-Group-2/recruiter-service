@@ -4,10 +4,9 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from tests.utilities.status_codes import StatusCodes
 from tests.utilities.utility_functions import assert_application_details, \
-    cleanup_db, generate_token_for_person_id_1, generate_token_for_recruiter, \
-    post_request_applications_endpoint, remove_application_statuses_from_db, \
-    remove_availabilities_from_db, remove_competence_profiles_from_db, \
-    remove_users_from_db, setup_application_statuses_for_all_users, \
+    generate_token_for_person_id_1, generate_token_for_recruiter, \
+    post_request_applications_endpoint, \
+    setup_application_statuses_for_all_users, \
     setup_availabilities_for_all_users, setup_availability_for_user2_in_db, \
     setup_availability_for_user3_in_db, \
     setup_competence_profiles_for_all_users, setup_three_users
@@ -45,11 +44,6 @@ def test_get_applications_success(app_with_client):
             [],
             [{'from_date': '2024-03-03', 'to_date': '2024-03-04'}])
 
-    remove_users_from_db(app)
-    remove_competence_profiles_from_db(app)
-    remove_availabilities_from_db(app)
-    remove_application_statuses_from_db(app)
-
 
 def test_get_applications_partial_success(app_with_client):
     app, test_client = app_with_client
@@ -85,8 +79,6 @@ def test_get_applications_partial_success(app_with_client):
     assert failed_to_fetch[0][
                'error'] == 'NO_AVAILABILITIES_FOUND_FOR_PERSON: 1'
 
-    cleanup_db(app)
-
 
 def test_get_applications_not_found(app_with_client):
     app, test_client = app_with_client
@@ -100,8 +92,6 @@ def test_get_applications_not_found(app_with_client):
     assert response.status_code == StatusCodes.NOT_FOUND
     assert response.json['error'] == 'NO_APPLICATION_STATUSES_FOUND'
 
-    cleanup_db(app)
-
 
 def test_get_applications_only_errors(app_with_client):
     app, test_client = app_with_client
@@ -114,8 +104,6 @@ def test_get_applications_only_errors(app_with_client):
 
     assert response.status_code == StatusCodes.INTERNAL_SERVER_ERROR
     assert response.json['error'] == 'COULD_NOT_FETCH_APPLICATIONS'
-
-    cleanup_db(app)
 
 
 def test_get_applications_unauthorized(app_with_client):
