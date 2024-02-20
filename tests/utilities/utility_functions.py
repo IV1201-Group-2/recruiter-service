@@ -149,11 +149,11 @@ def setup_competence_profiles_for_all_users(app):
     setup_competence_profile_for_user2_in_db(app)
 
 
-def assert_application_details(application, name, surname, pnr, status,
+def assert_application_details(application, name, surname, person_id, status,
                                competences, availabilities):
     assert application['personal_info']['name'] == name
     assert application['personal_info']['surname'] == surname
-    assert application['personal_info']['pnr'] == pnr
+    assert application['personal_info']['person_id'] == person_id
     assert application['status'] == status
     assert application['competences'] == competences
     assert application['availabilities'] == availabilities
