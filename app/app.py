@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 
 from flask import Flask
 from flask_cors import CORS
@@ -38,24 +39,40 @@ def setup_logging(recruiter_api: Flask) -> None:
     """
     Sets up logging for the Flask application.
 
-    This function sets up logging for the Flask application. It creates a
-    directory for log files if it doesn't exist, and configures the logging
-    module to write logs to a file with a specified format and level.
+    This function checks if LOG_TO_STDOUT is enabled in the configuration. If so,
+    it sets up logging to stdout. Otherwise, it configures logging to a file as
+    previously.
 
     :param recruiter_api: The Flask application.
     """
 
-    log_dir = recruiter_api.config.get('LOG_DIR', 'logs')
-    os.makedirs(log_dir, exist_ok=True)
+    if recruiter_api.config.get('LOG_TO_STDOUT'):
+        stream_handler = logging.StreamHandler(sys.stdout)
+        stream_handler.setLevel(
+                recruiter_api.config.get('LOG_LEVEL', logging.INFO))
+        stream_handler.setFormatter(logging.Formatter(
+                recruiter_api.config.get(
+                        'LOG_FORMAT',
+                        '%(asctime)s - %(name)s - '
+                        '%(levelname)s - %(message)s')))
+        logging.getLogger().addHandler(stream_handler)
+    else:
+        log_dir = recruiter_api.config.get('LOG_DIR', 'logs')
+        os.makedirs(log_dir, exist_ok=True)
+        file_handler = logging.FileHandler(
+                recruiter_api.config.get('LOG_FILE',
+                                         os.path.join(log_dir, 'app.log')))
+        file_handler.setLevel(
+                recruiter_api.config.get('LOG_LEVEL', logging.INFO))
+        file_handler.setFormatter(logging.Formatter(
+                recruiter_api.config.get(
+                        'LOG_FORMAT',
+                        '%(asctime)s - %(name)s - '
+                        '%(levelname)s - %(message)s')))
+        logging.getLogger().addHandler(file_handler)
 
-    logging.basicConfig(
-            level=recruiter_api.config.get('LOG_LEVEL', logging.INFO),
-            format=recruiter_api.config.get(
-                    'LOG_FORMAT',
-                    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
-            filename=recruiter_api.config.get(
-                    'LOG_FILE', os.path.join(log_dir, 'app.log'))
-    )
+    logging.getLogger().setLevel(
+            recruiter_api.config.get('LOG_LEVEL', logging.INFO))
 
 
 def setup_extensions(recruiter_api: Flask) -> None:
