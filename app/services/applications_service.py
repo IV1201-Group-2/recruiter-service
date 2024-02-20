@@ -6,6 +6,18 @@ from app.repositories.applications_repository import \
 
 
 def compile_applications() -> tuple[list, list]:
+    """
+    Compiles applications information.
+
+    This function fetches the applications information from the database. It
+    checks each application status and compiles the personal information,
+    competences, and availabilities related to each application.
+
+    :returns: A tuple containing a list of errors and the compiled applications
+    :raises NoResultFound: If no application statuses are found.
+    :raises SQLAlchemyError: If there is a database issue.
+    """
+
     application_statuses = get_application_statuses_from_db()
     compiled_applications = []
     errors = []
