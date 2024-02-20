@@ -35,20 +35,3 @@ def get_applications() -> tuple[Response, int]:
     except SQLAlchemyError:
         return (jsonify({'error': 'COULD_NOT_FETCH_APPLICATIONS'}),
                 StatusCodes.INTERNAL_SERVER_ERROR)
-
-
-"""
-@applications_bp.route('/<int:person_id>/<str:status>', methods=['POST'])
-@jwt_required()
-def get_applicationss() -> tuple[Response, int]:
-    if get_jwt()['role'] != 1:
-        return jsonify({'error': 'UNAUTHORIZED'}), StatusCodes.UNAUTHORIZED
-
-    try:
-        applications = compile_applications()
-        current_app.logger.info('Responding with applications.')
-        return jsonify(applications), StatusCodes.OK
-    except SQLAlchemyError:
-        return (jsonify({'error': 'COULD_NOT_FETCH_APPLICATIONS'}),
-                StatusCodes.INTERNAL_SERVER_ERROR)
-"""
