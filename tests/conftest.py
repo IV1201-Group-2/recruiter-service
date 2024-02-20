@@ -1,9 +1,10 @@
 import pytest
 
 from app.app import create_app, database
+from tests.utilities.utility_functions import cleanup_db
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def app_with_client():
     flask_app = create_app()
     flask_app.config.update({
@@ -20,5 +21,6 @@ def app_with_client():
         yield flask_app, testing_client
 
     with flask_app.app_context():
+        cleanup_db(flask_app)
         database.session.remove()
         database.drop_all()
