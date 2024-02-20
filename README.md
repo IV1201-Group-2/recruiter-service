@@ -43,7 +43,7 @@ All applications were fetched successfully. The response body contains an array 
         "to_date": "2024-03-05"
       }
     ],
-    "status": "UNHANDLED"
+    "status": "Pending"
   },
   ...
 ]
@@ -79,7 +79,7 @@ applications and an array of errors.
           "to_date": "2024-03-03"
         }
       ],
-      "status": "UNHANDLED"
+      "status": "Pending"
     },
     ...
   ],
