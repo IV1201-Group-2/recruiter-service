@@ -11,6 +11,15 @@ applications_bp = Blueprint('applications', __name__)
 @applications_bp.route('/', methods=['GET'])
 @jwt_required()
 def get_applications() -> tuple[Response, int]:
+    """
+    Retrieves applications information.
+
+    This function fetches the applications information. It checks if the
+    current user is authorized. If the user is, it fetches the applications.
+
+    :returns: A tuple containing the response and the status code.
+    """
+
     if get_jwt()['role'] != 1:
         return jsonify({'error': 'UNAUTHORIZED'}), StatusCodes.UNAUTHORIZED
 
