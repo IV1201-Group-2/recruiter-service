@@ -160,10 +160,10 @@ def assert_application_details(application, name, surname, person_id, status,
 
 
 def cleanup_db(app):
-    remove_users_from_db(app)
     remove_application_statuses_from_db(app)
     remove_competence_profiles_from_db(app)
     remove_availabilities_from_db(app)
+    remove_users_from_db(app)
 
 
 def post_request_applications_endpoint(test_client, token):
