@@ -21,7 +21,7 @@ def test_get_application_statuses_from_db_success(app_with_client):
         application_statuses = get_application_statuses_from_db()
         assert len(application_statuses) == 1
         assert application_statuses[0].person_id == 1
-        assert application_statuses[0].status == 'UNHANDLED'
+        assert application_statuses[0].status == 'Pending'
 
     cleanup_db(app)
 
