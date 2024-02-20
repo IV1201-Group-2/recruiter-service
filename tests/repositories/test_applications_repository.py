@@ -15,6 +15,7 @@ from tests.utilities.utility_functions import cleanup_db, \
 
 def test_get_application_statuses_from_db_success(app_with_client):
     app, _ = app_with_client
+    setup_user1_in_db(app)
     setup_application_status_for_user1_in_db(app)
 
     with app.app_context():
@@ -39,6 +40,7 @@ def test_get_application_statuses_from_db_no_statuses(app_with_client):
 
 def test_get_application_statuses_from_db_sqlalchemy_error(app_with_client):
     app, _ = app_with_client
+    setup_user1_in_db(app)
     setup_application_status_for_user1_in_db(app)
 
     with (app.app_context()):
