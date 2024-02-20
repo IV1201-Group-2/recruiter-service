@@ -39,9 +39,9 @@ def setup_logging(recruiter_api: Flask) -> None:
     """
     Sets up logging for the Flask application.
 
-    This function checks if LOG_TO_STDOUT is enabled in the configuration. If so,
-    it sets up logging to stdout. Otherwise, it configures logging to a file as
-    previously.
+    This function checks if LOG_TO_STDOUT is enabled in the configuration. If
+    so, it sets up logging to stdout. Otherwise, it configures logging to a
+    file as previously.
 
     :param recruiter_api: The Flask application.
     """
