@@ -29,19 +29,19 @@ def test_get_applications_success(app_with_client):
     assert len(applications) == 3
 
     assert_application_details(
-            applications[0], 'user1', 's1', '1', 'UNHANDLED',
+            applications[0], 'user1', 's1', 1, 'UNHANDLED',
             [{'competence_id': 1, 'years_of_experience': '1.00'},
              {'competence_id': 1, 'years_of_experience': '4.00'}],
             [{'from_date': '2024-03-01', 'to_date': '2024-03-02'},
              {'from_date': '2024-03-04', 'to_date': '2024-03-05'}])
 
     assert_application_details(
-            applications[1], 'user2', 's2', '2', 'UNHANDLED',
+            applications[1], 'user2', 's2', 2, 'UNHANDLED',
             [{'competence_id': 2, 'years_of_experience': '2.00'}],
             [{'from_date': '2024-03-02', 'to_date': '2024-03-03'}])
 
     assert_application_details(
-            applications[2], 'user3', 's3', '3', 'UNHANDLED',
+            applications[2], 'user3', 's3', 3, 'UNHANDLED',
             [],
             [{'from_date': '2024-03-03', 'to_date': '2024-03-04'}])
 
@@ -71,12 +71,12 @@ def test_get_applications_partial_success(app_with_client):
     assert len(successfully_fetched) == 2
 
     assert_application_details(
-            successfully_fetched[0], 'user2', 's2', '2', 'UNHANDLED',
+            successfully_fetched[0], 'user2', 's2', 2, 'UNHANDLED',
             [{'competence_id': 2, 'years_of_experience': '2.00'}],
             [{'from_date': '2024-03-02', 'to_date': '2024-03-03'}])
 
     assert_application_details(
-            successfully_fetched[1], 'user3', 's3', '3', 'UNHANDLED',
+            successfully_fetched[1], 'user3', 's3', 3, 'UNHANDLED',
             [],
             [{'from_date': '2024-03-03', 'to_date': '2024-03-04'}])
 
