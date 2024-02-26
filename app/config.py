@@ -6,9 +6,11 @@ JWT_IDENTITY_CLAIM = 'id'
 database_url = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
 if database_url.startswith('postgres://'):
     database_url = database_url.replace(
-        'postgres://', 'postgresql://', 1)
+            'postgres://', 'postgresql://', 1)
 
 SQLALCHEMY_DATABASE_URI = database_url
+SQLALCHEMY_POOL_SIZE = 3
+SQLALCHEMY_MAX_OVERFLOW = 1
 
 LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
 LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
