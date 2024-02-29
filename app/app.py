@@ -26,7 +26,8 @@ def create_app() -> Flask:
     recruiter_api.config.from_pyfile('config.py')
     recruiter_api.errorhandler(Exception)(handle_all_unhandled_exceptions)
 
-    CORS(recruiter_api, resources={r"/api/*": {"origins": "*"}})
+    CORS(recruiter_api, resources={r"/api/*": {
+        "origins": "https://client-service-f45dc8e85ddf.herokuapp.com"}})
 
     setup_logging(recruiter_api)
     setup_extensions(recruiter_api)
