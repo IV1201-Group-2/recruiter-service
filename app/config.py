@@ -9,7 +9,7 @@ if database_url.startswith('postgres://'):
             'postgres://', 'postgresql://', 1)
 
 SQLALCHEMY_DATABASE_URI = database_url
-SQLALCHEMY_POOL_SIZE = 3
+SQLALCHEMY_POOL_SIZE = 2
 SQLALCHEMY_MAX_OVERFLOW = 1
 
 LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
