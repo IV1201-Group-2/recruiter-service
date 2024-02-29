@@ -1,140 +1,88 @@
-# Applications Endpoint
+# Recruiter Service
 
-`GET /api/applications/`
+This API is used by recruiters to retrieve job applications and applicant's personal information. It is a microservice
+that is part of a recruitment application.
 
-## Additional requirements
+## General Information
 
-* The user must be logged in when calling this API
-* The user's JWT token must be included in the `Authorization` header
+- **Programming Language**: Python
+- **Virtual Environment**: Python venv
+- **Framework**: Flask
+- **Application Modularity**: Flask Blueprints
+- **API Design**: RESTful principles
+- **Configuration Management**: Externalized to config.py
+- **Security**: Flask-JWT-Extended (authentication & authorization)
+- **CORS**: Flask-Cors
+- **Logging**: Flask-Logging + Root Logger
+- **Database Integration**: Flask-SQLAlchemy
+- **Database**: PostgreSQL
+- **Testing**: Pytest
+- **Code Coverage**: pytest-cov
+- **Linting**: flake8
+- **Dependency Management**: Pip
+- **Continuous Integration**: GitHub Actions
+- **Continuous Deployment**: Heroku
 
-## Successful Response Body
+## Project Setup
 
-#### `OK` (200 OK)
+Ensure all commands are executed from the project root.
 
-All applications were fetched successfully. The response body contains an array of applications.
+1. **Environment Setup**: Create and activate a virtual environment.
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
 
-```json
-[
-  {
-    "personal_info": {
-      "person_id": 1,
-      "name": "user1",
-      "surname": "tester",
-      "pnr": "123123123",
-      "email": "hello@kth.se"
-    },
-    "competences": [
-      {
-        "competence_id": 1,
-        "years_of_experience": 1.00
-      },
-      {
-        "competence_id": 1,
-        "years_of_experience": 4.00
-      }
-    ],
-    "availabilities": [
-      {
-        "from_date": "2024-03-01",
-        "to_date": "2024-03-02"
-      },
-      {
-        "from_date": "2024-03-04",
-        "to_date": "2024-03-05"
-      }
-    ],
-    "status": "Pending"
-  },
-  ...
-]
+2. **Install Dependencies**: Install all required dependencies.
+    ```bash
+    pip install -r requirements.txt
+    pip install -r requirements-dev.txt
+    ```
+
+3. **Run Tests**: Execute all tests.
+    ```bash
+    pytest
+    ```
+
+4. **Code Coverage**: Generate code coverage report.
+    ```bash
+    pytest --cov=app
+    ```
+
+5. **Linting**: Run linting checks.
+    ```bash
+   flake8 --show-source --statistics app tests
+    ```
+
+6. **Environment Variables**:
+    - Setup as specified in config.py.
+
+
+7. **Run Development Server**: Start the development server.
+    ```bash
+    flask --app app/app run
+    ```
+
+8. **Run Heroku Locally**: Run the application locally using Heroku.
+    ```bash
+    heroku local
+    ```
+
+## Directory Structure
+
 ```
-
-## Partially Successful Response Body
-
-#### `PARTIAL_CONTENT` (206 Partial Content)
-
-Some applications were fetched successfully, but there were errors with others. The response body contains an array of
-applications and an array of errors.
-
-```json
-{
-  "applications": [
-    {
-      "personal_info": {
-        "person_id": 1,
-        "name": "user2",
-        "surname": "tester",
-        "pnr": "1231231232",
-        "email": "hello@kth.se"
-      },
-      "competences": [
-        {
-          "competence_id": 2,
-          "years_of_experience": 2.00
-        }
-      ],
-      "availabilities": [
-        {
-          "from_date": "2024-03-02",
-          "to_date": "2024-03-03"
-        }
-      ],
-      "status": "Pending"
-    },
-    ...
-  ],
-  "errors": [
-    {
-      "error": "NO_AVAILABILITIES_FOUND_FOR_PERSON: 1"
-    },
-    ...
-  ]
-}
+📦 
+├─ .github
+│  └─ workflows      - Contains GitHub Actions workflow files.
+├─ app
+│  ├─ models         - Contains database entities.
+│  ├─ repositories   - Handles database interactions.
+│  ├─ routes         - Defines application routes.
+│  ├─ services       - Implements business logic.
+│  └─ utilities      - Contains HTTP status codes.
+└─ tests
+   ├─ repositories   - Unit tests for repository functions.
+   ├─ routes         - Unit tests for route handlers.
+   ├─ services       - Unit tests for service layer functions.
+   └─ utilities      - Utility functions for testing.
 ```
-
-## Error Response Body
-
-#### `INTERNAL_SERVER_ERROR` (500 Internal Server Error)
-
-There was an issue with the database operation when trying to fetch the applications. The response body contains an
-error message.
-
-```json
-{
-  "error": "COULD_NOT_FETCH_APPLICATIONS"
-}
-```
-
-## Error responses
-
-#### `UNAUTHORIZED` (401 Unauthorized)
-
-User is not logged in (JWT token was not provided or is invalid)
-
-#### `COULD_NOT_FETCH_APPLICATIONS` (500 Internal Server Error)
-
-There was an issue with the database operation when trying to fetch the applications
-
-#### `NOT_FOUND` (404 Not Found)
-
-No applications were found in the database
-
-#### `PARTIAL_CONTENT` (206 Partial Content)
-
-Some applications were fetched successfully, but there were errors with others
-
-#### `INTERNAL_SERVER_ERROR` (500 Internal Server Error)
-
-An unexpected error occurred
-
-#### `INVALID_TOKEN` (401 Unauthorized)
-
-The provided JWT token is invalid (e.g., it is expired, not yet valid, or does not contain the required claims)
-
-#### `TOKEN_EXPIRED` (401 Unauthorized)
-
-The provided JWT token has expired
-
-#### `UNAUTHORIZED` (401 Unauthorized)
-
-Unauthorized request
