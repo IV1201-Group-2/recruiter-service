@@ -3,8 +3,8 @@ import os
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET')
 JWT_IDENTITY_CLAIM = 'id'
 
-database_url = os.environ.get('DATABASE_URL', 'sqlite:///app.db')
-if database_url.startswith('postgres://'):
+database_url = os.environ.get('DATABASE_URL')
+if database_url and database_url.startswith('postgres://'):
     database_url = database_url.replace(
             'postgres://', 'postgresql://', 1)
 
