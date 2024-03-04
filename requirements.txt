@@ -5,6 +5,11 @@ Flask-JWT-Extended==4.6.0
 Flask-SQLAlchemy==3.1.1
 gunicorn==21.2.0
 mypy==1.8.0
+lxml==5.1.0
 psycopg2==2.9.9
 pytest-cov==4.1.0
 testcontainers==3.7.1
+types-Flask-Cors==4.0.0.20240106
+types-Flask-SQLAlchemy==2.5.9.4
+types-SQLAlchemy==1.4.53.38
+typing_extensions==4.9.0
