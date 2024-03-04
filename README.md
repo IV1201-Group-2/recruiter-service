@@ -38,12 +38,12 @@ Ensure all commands are executed from the project root.
     pip install -r requirements.txt
     ```
 
-3. **Run Tests**: Execute all tests.
+3. **Run Tests**: Execute all tests (requires Docker to run locally).
     ```bash
     pytest
     ```
 
-4. **Code Coverage**: Generate code coverage report.
+4. **Code Coverage**: Generate code coverage report (requires Docker to run locally).
     ```bash
     pytest --cov=app
     ```
